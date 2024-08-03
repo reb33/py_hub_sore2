@@ -1,9 +1,19 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-def index(rewuest):
-    return render()
+
+def index(request):
+    context = {
+        'title': 'Home - Главная',
+        'content': "Магазин мебели HOME",
+    }
+    return render(request, 'main/index.html', context)
 
 
-def about(rewuest):
-    return HttpResponse('About Page')
+def about(request):
+    context = {
+        'title': 'Home - О нас',
+        'content': "О нас",
+        "text_on_page": "длинный текст о магазине"
+    }
+    return render(request, 'main/about.html', context)
