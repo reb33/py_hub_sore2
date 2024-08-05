@@ -130,7 +130,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
-INTERNAL_IPS = [
+MEDIA_URL = "media/"  # название url префикса
+MEDIA_ROOT = BASE_DIR / "media"
+
+INTERNAL_IPS = [  # для django-debug-toolbar
     # ...
     "127.0.0.1",
     # ...
