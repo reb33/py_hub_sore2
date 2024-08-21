@@ -7,7 +7,9 @@ from goods.models import Products
 # Create your views here.
 
 
-def catalog(request, category_slug, page=1):
+def catalog(request, category_slug):
+    page = int(request.GET.get("page", 1))
+
     if category_slug == "all":
         goods = Products.objects.all()
     else:
