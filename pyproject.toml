@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.12"
 django = "^4.2"
 pillow = "^10.4.0"
+psycopg = "^3.2.1"
 
 
 [tool.poetry.group.dev.dependencies]
