@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
 
-    'main',
+    "main",
     "goods",
+    "users"
 ]
 
 if DEBUG:
@@ -148,3 +149,4 @@ INTERNAL_IPS = [  # для django-debug-toolbar
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = "users.User"
