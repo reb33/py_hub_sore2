@@ -1,4 +1,5 @@
-from django.contrib import auth
+from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -14,7 +15,10 @@ def login(request):
             password = request.POST["password"]
             if user := auth.authenticate(username=username, password=password):
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse('main:index'))
+                messages.success(request, f"Вход {username}")
+                if request.POST.get("next"):
+                    return HttpResponseRedirect(request.POST.get("next"))
+                return HttpResponseRedirect(reverse("main:index"))
     else:
         form = UserLoginForm()
     context = {
@@ -31,6 +35,7 @@ def registration(request):
             form.save()
             user = form.instance
             auth.login(request, user)
+            messages.success(request, f"Создание и вход {user.username}")
             return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserRegistrationForm()
@@ -42,6 +47,7 @@ def registration(request):
     return render(request, 'users/registration.html', context)
 
 
+@login_required
 def profile(request):
     if request.method == "POST":
         form = ProfileForm(
@@ -51,6 +57,7 @@ def profile(request):
         )
         if form.is_valid():
             form.save()
+            messages.success(request, f"Профиль обновлен")
             return HttpResponseRedirect(reverse('user:profile'))
     else:
         form = ProfileForm(instance=request.user)  # передаем авторизованного пользователя
@@ -62,6 +69,8 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
+@login_required
 def logout(request):
+    messages.success(request, f"Выход {request.user.username}")
     auth.logout(request)
     return redirect(reverse("main:index"))
