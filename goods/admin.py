@@ -8,9 +8,9 @@ from goods.models import Categories, Products
 
 @admin.register(Categories)
 class CategoriesAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}  # автозаполнение slug транслитерацией
+    prepopulated_fields = {"slug": ("name",)}  # автозаполнение slug транслитерацией
 
 
 @admin.register(Products)
 class ProductsAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {"slug": ("name",)}

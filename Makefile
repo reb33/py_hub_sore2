@@ -5,3 +5,7 @@ dumpdata:
 loaddata:
 	python manage.py loaddata fixtures/goods/cats.json
 	python manage.py loaddata fixtures/goods/prod.json
+
+ruff:
+	ruff check --fix
+	ruff format

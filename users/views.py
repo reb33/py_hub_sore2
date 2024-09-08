@@ -22,10 +22,10 @@ def login(request):
     else:
         form = UserLoginForm()
     context = {
-        'title': 'Home - Авторизация',
-        'form': form,
+        "title": "Home - Авторизация",
+        "form": form,
     }
-    return render(request, 'users/login.html', context)
+    return render(request, "users/login.html", context)
 
 
 def registration(request):
@@ -36,15 +36,15 @@ def registration(request):
             user = form.instance
             auth.login(request, user)
             messages.success(request, f"Создание и вход {user.username}")
-            return HttpResponseRedirect(reverse('main:index'))
+            return HttpResponseRedirect(reverse("main:index"))
     else:
         form = UserRegistrationForm()
 
     context = {
-        'title': 'Home - Регистрация',
+        "title": "Home - Регистрация",
         "form": form,
     }
-    return render(request, 'users/registration.html', context)
+    return render(request, "users/registration.html", context)
 
 
 @login_required
@@ -57,16 +57,18 @@ def profile(request):
         )
         if form.is_valid():
             form.save()
-            messages.success(request, f"Профиль обновлен")
-            return HttpResponseRedirect(reverse('user:profile'))
+            messages.success(request, "Профиль обновлен")
+            return HttpResponseRedirect(reverse("user:profile"))
     else:
-        form = ProfileForm(instance=request.user)  # передаем авторизованного пользователя
+        form = ProfileForm(
+            instance=request.user
+        )  # передаем авторизованного пользователя
 
     context = {
-        'title': 'Home - Кабинет',
+        "title": "Home - Кабинет",
         "form": form,
     }
-    return render(request, 'users/profile.html', context)
+    return render(request, "users/profile.html", context)
 
 
 @login_required
