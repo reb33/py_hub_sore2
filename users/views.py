@@ -16,8 +16,9 @@ def login(request):
             if user := auth.authenticate(username=username, password=password):
                 auth.login(request, user)
                 messages.success(request, f"Вход {username}")
-                if request.POST.get("next"):
-                    return HttpResponseRedirect(request.POST.get("next"))
+                if redirect_page := request.POST.get("next", None):
+                    if redirect_page != reverse("user:logout"):
+                        return HttpResponseRedirect(redirect_page)
                 return HttpResponseRedirect(reverse("main:index"))
     else:
         form = UserLoginForm()
@@ -71,8 +72,8 @@ def profile(request):
     return render(request, "users/profile.html", context)
 
 
-def users_cart(request):
-    return render(request, "users/users_cart.html")
+def user_carts(request):
+    return render(request, "users/user_carts.html")
 
 
 @login_required
