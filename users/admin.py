@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from carts.admin import CartTableAdmin
+from carts.admin import CartTabularAdmin
+from orders.admin import OrderTabularAdmin
 from users.models import User
 
 # admin.site.register(User)
@@ -11,4 +12,4 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ['username', 'first_name', 'last_name', 'email']
     search_fields = ['username', 'first_name', 'last_name', 'email']
 
-    inlines = [CartTableAdmin]  # добавить таблицу на страницу пользователей
+    inlines = [CartTabularAdmin, OrderTabularAdmin]  # добавить таблицу на страницу пользователей

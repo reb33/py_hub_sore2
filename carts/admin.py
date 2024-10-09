@@ -5,10 +5,9 @@ from carts.models import Cart
 # admin.site.register(Cart)
 
 
-class CartTableAdmin(admin.TabularInline):
+class CartTabularAdmin(admin.TabularInline):  # таблица которую добавили на страницу пользователей
     model = Cart
     fields = ["product", 'quantity', 'created_timestamp']
-    search_fields = ['product', 'quantity', 'created_timestamp']
     readonly_fields = ['created_timestamp']
     extra = 1  # одно пустое поле внизу таблицы
 

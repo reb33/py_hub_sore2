@@ -10,6 +10,7 @@ $(document).ready(function () {
 
         // Берем элемент счетчика в значке корзины и берем оттуда значение
         var goodsInCartCount = $("#goods-in-cart-count");
+        let btnCreateOrder = $("#btn-create-order");
         var cartCount = parseInt(goodsInCartCount.text() || 0);
 
         // Получаем id товара из атрибута data-product-id
@@ -37,6 +38,9 @@ $(document).ready(function () {
 
                 // Увеличиваем количество товаров в корзине (отрисовка в шаблоне)
                 cartCount++;
+                if (cartCount>0) {
+                    btnCreateOrder.attr("hidden", false)
+                }
                 goodsInCartCount.text(cartCount);
 
                 // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
@@ -61,6 +65,7 @@ $(document).ready(function () {
 
         // Берем элемент счетчика в значке корзины и берем оттуда значение
         var goodsInCartCount = $("#goods-in-cart-count");
+        let btnCreateOrder = $("#btn-create-order");
         var cartCount = parseInt(goodsInCartCount.text() || 0);
 
         // Получаем id корзины из атрибута data-cart-id
@@ -89,6 +94,9 @@ $(document).ready(function () {
                 // Уменьшаем количество товаров в корзине (отрисовка)
                 cartCount -= data.quantity_deleted;
                 goodsInCartCount.text(cartCount);
+                if (cartCount<=0) {
+                    btnCreateOrder.attr("hidden", true)
+                }
 
                 // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
                 var cartItemsContainer = $("#cart-items-container");

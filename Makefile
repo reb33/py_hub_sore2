@@ -5,6 +5,8 @@ dumpdata:
 loaddata:
 	python manage.py loaddata fixtures/goods/cats.json
 	python manage.py loaddata fixtures/goods/prod.json
+	python manage.py loaddata fixtures/users/users.json
+	python manage.py loaddata fixtures/orders/orders.json
 
 ruff:
 	ruff check --fix

@@ -19,4 +19,6 @@ class ProductsAdmin(admin.ModelAdmin):
     list_editable = ['discount']  # какие поля можно менять в таблице
     search_fields = ['name', 'description']
     list_filter = ['discount', 'quantity', 'category']
-    fields = ['name', 'category', 'slug', 'description', 'image', ('price', 'discount'), 'quantity']
+    fields = ['name', 'category', 'slug', 'description', 'image', ('price', 'discount'), 'quantity']  # отображение полей если войти в объект
+
+    # чтоб появилась кнопка "Смотреть на сайте" нужно создать метод get_absolute_url в модели
