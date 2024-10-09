@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class OrderItemQuerySet(models.QuerySet):
-
     def total_price(self):
         return sum(cart.products_price() for cart in self)
 
@@ -18,7 +17,7 @@ class OrderItemQuerySet(models.QuerySet):
 
 class Order(models.Model):
     class Statuses(models.TextChoices):
-        CREATED = "created", _('Создан')
+        CREATED = "created", _("Создан")
         IN_PROGRESS = "in_progress", _("В обработке")
         DONE = "done", _("Выполнен")
 
@@ -29,7 +28,9 @@ class Order(models.Model):
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки")
     payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
-    status = models.CharField(max_length=50, choices=Statuses.choices, default=Statuses.IN_PROGRESS, verbose_name="Статус заказа")
+    status = models.CharField(
+        max_length=50, choices=Statuses.choices, default=Statuses.IN_PROGRESS, verbose_name="Статус заказа"
+    )
 
     class Meta:
         db_table = "order"
@@ -42,16 +43,16 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name="Заказ")
-    product = models.ForeignKey(Products, on_delete=models.SET_DEFAULT, null=True, verbose_name='Продукт', default=None)
-    name = models.CharField(max_length=150, verbose_name='Название')
-    price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name='Цена')
-    quantity = models.PositiveSmallIntegerField(default=0, verbose_name='Количество')
-    created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата продажи')
+    product = models.ForeignKey(Products, on_delete=models.SET_DEFAULT, null=True, verbose_name="Продукт", default=None)
+    name = models.CharField(max_length=150, verbose_name="Название")
+    price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="Цена")
+    quantity = models.PositiveSmallIntegerField(default=0, verbose_name="Количество")
+    created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата продажи")
 
     class Meta:
-        db_table = 'order_item'
-        verbose_name = 'Проданный товар'
-        verbose_name_plural = 'Проданные товары'
+        db_table = "order_item"
+        verbose_name = "Проданный товар"
+        verbose_name_plural = "Проданные товары"
 
     objects = OrderItemQuerySet.as_manager()
 
@@ -59,6 +60,4 @@ class OrderItem(models.Model):
         return round(self.product.sell_price() * self.quantity, 2)
 
     def __str__(self):
-        return f'Товар {self.name} | Заказ № {self.order.pk}'
-
-
+        return f"Товар {self.name} | Заказ № {self.order.pk}"

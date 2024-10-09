@@ -75,9 +75,7 @@ def profile(request):
             messages.success(request, "Профиль обновлен")
             return HttpResponseRedirect(reverse("user:profile"))
     else:
-        form = ProfileForm(
-            instance=request.user
-        )  # передаем авторизованного пользователя
+        form = ProfileForm(instance=request.user)  # передаем авторизованного пользователя
 
     context = {
         "title": "Home - Кабинет",

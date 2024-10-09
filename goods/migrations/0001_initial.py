@@ -24,9 +24,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(
-                        max_length=150, unique=True, verbose_name="Название"
-                    ),
+                    models.CharField(max_length=150, unique=True, verbose_name="Название"),
                 ),
                 (
                     "slug",
@@ -59,9 +57,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(
-                        max_length=150, unique=True, verbose_name="Название"
-                    ),
+                    models.CharField(max_length=150, unique=True, verbose_name="Название"),
                 ),
                 (
                     "slug",
@@ -88,9 +84,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "price",
-                    models.DecimalField(
-                        decimal_places=2, default=0.0, max_digits=7, verbose_name="Цена"
-                    ),
+                    models.DecimalField(decimal_places=2, default=0.0, max_digits=7, verbose_name="Цена"),
                 ),
                 (
                     "discount",

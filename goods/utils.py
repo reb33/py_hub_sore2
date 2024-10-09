@@ -16,9 +16,7 @@ def q_search(query: str):
     vector = SearchVector("name", "description")
     query = SearchQuery(query)
     result = (
-        Products.objects.annotate(rank=SearchRank(vector, query))
-        .filter(rank__gt=0)
-        .order_by("-rank")
+        Products.objects.annotate(rank=SearchRank(vector, query)).filter(rank__gt=0).order_by("-rank")
     )  # сортировка по релевантности
 
     result = result.annotate(

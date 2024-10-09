@@ -1,5 +1,4 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 
 from carts.models import Cart
@@ -8,7 +7,6 @@ from goods.models import Products
 
 
 def cart_add(request):
-
     product_id = request.POST.get("product_id")
     product = Products.objects.get(id=product_id)
 
@@ -31,11 +29,8 @@ def cart_add(request):
         else:
             Cart.objects.create(session_key=request.session.session_key, product=product, quantity=1)
 
-
     user_carts = get_user_carts(request)
-    cart_items_html = render_to_string(
-        "carts/includes/included_cart.html", {"carts": user_carts}, request=request
-    )
+    cart_items_html = render_to_string("carts/includes/included_cart.html", {"carts": user_carts}, request=request)
 
     response_data = {
         "message": "Товар добавлен в корзину",
@@ -64,7 +59,6 @@ def cart_change(request):
 
 
 def cart_remove(request):
-
     cart_id = request.POST.get("cart_id")
 
     cart = Cart.objects.get(id=cart_id)
