@@ -7,11 +7,11 @@ from django.utils.translation import gettext_lazy as _
 
 class OrderItemQuerySet(models.QuerySet):
     def total_price(self):
-        return sum(cart.products_price() for cart in self)
+        return sum(item.products_price() for item in self)
 
     def total_quantity(self):
         if self:
-            return sum(cart.quantity for cart in self)
+            return sum(item.quantity for item in self)
         return 0
 
 
