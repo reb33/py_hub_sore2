@@ -1,7 +1,9 @@
 {% load static %}
 {% load carts_tags %}
 
-{% get_carts_for_user request as carts %}
+{% if not carts %}
+    {% get_carts_for_user request as carts %}
+{% endif %}
 <div class="container" id="cart-items-container">
     <div class="card mb-3 text-bg-light shadow-lg">
         {% for cart in carts %}
@@ -16,6 +18,7 @@
                             <span class="input-group-btn">
                                 <button type="button"
                                         class="btn btn-dark btn-sm decrement"
+                                        data-order="{{ order }}"
                                         data-cart-id="{{ cart.id }}"
                                         data-cart-change-url="{% url "carts:cart_change" %}">{% csrf_token %}-</button>
                             </span>
@@ -24,6 +27,7 @@
                                 <span class="input-group-btn">
                                 <button type="button"
                                         class="btn btn-dark btn-sm increment"
+                                        data-order="{{ order }}"
                                         data-cart-id="{{ cart.id }}"
                                         data-cart-change-url="{% url "carts:cart_change" %}">{% csrf_token %}+</button>
                             </span>
