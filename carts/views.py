@@ -1,16 +1,12 @@
 from django.http import JsonResponse
-from django.template.loader import render_to_string
-from django.urls import reverse
 from django.views import View
 
 from carts.mixins import CartMixin
 from carts.models import Cart
-from carts.utils import get_user_carts
 from goods.models import Products
 
 
 class CartAddView(CartMixin, View):
-
     def post(self, request):
         product_id = request.POST.get("product_id")
         product = Products.objects.get(id=product_id)
@@ -25,7 +21,7 @@ class CartAddView(CartMixin, View):
                 user=request.user if request.user.is_authenticated else None,
                 session_key=request.session.session_key if not request.user.is_authenticated else None,
                 product=product,
-                quantity=1
+                quantity=1,
             )
 
         response_data = {
@@ -36,7 +32,6 @@ class CartAddView(CartMixin, View):
 
 
 class CardChangeView(CartMixin, View):
-
     def post(self, request):
         cart_id = request.POST.get("cart_id")
 
@@ -54,7 +49,6 @@ class CardChangeView(CartMixin, View):
 
 
 class CartRemoveView(CartMixin, View):
-
     def post(self, request):
         cart_id = request.POST.get("cart_id")
 
@@ -68,6 +62,7 @@ class CartRemoveView(CartMixin, View):
             "quantity_deleted": quantity,
         }
         return JsonResponse(response_data)
+
 
 # def cart_add(request):
 #     product_id = request.POST.get("product_id")

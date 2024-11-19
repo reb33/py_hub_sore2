@@ -77,7 +77,6 @@ class CreateOrderView(LoginRequiredMixin, FormView):
         return context
 
 
-
 # @login_required
 # def create_order(request):
 #     if request.method == "POST":

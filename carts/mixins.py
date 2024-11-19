@@ -6,7 +6,6 @@ from carts.utils import get_user_carts
 
 
 class CartMixin:
-
     def get_cart(self, request, product=None, cart_id=None):
         if request.user.is_authenticated:
             query_kwargs = {"user": request.user}
@@ -25,8 +24,8 @@ class CartMixin:
         user_carts = get_user_carts(request)
         context = {"carts": user_carts}
 
-        referer = request.META.get('HTTP_REFERER')
-        if reverse('orders:create_order') in referer:
+        referer = request.META.get("HTTP_REFERER")
+        if reverse("orders:create_order") in referer:
             context["order"] = True
 
         return render_to_string("carts/includes/included_cart.html", context, request=request)

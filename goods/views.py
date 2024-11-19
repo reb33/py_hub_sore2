@@ -1,7 +1,7 @@
 from django.shortcuts import get_list_or_404
 from django.views.generic import DetailView, ListView
 
-from goods.models import Products, Categories
+from goods.models import Products
 from goods.utils import q_search
 
 
